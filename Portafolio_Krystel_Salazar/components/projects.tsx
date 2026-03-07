@@ -1,38 +1,98 @@
 "use client"
 
+import { motion } from "framer-motion"
 import { useGithubProjects } from "@/hooks/usegithubproyects"
 import { ExternalLink, Github, ChevronDown } from "lucide-react"
+
+const staggerContainer = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.12,
+      delayChildren: 0.08,
+    },
+  },
+}
+
+const fadeItem = {
+  hidden: { opacity: 0, y: 26 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.7,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
+}
+
+const fadeUpSoft = {
+  hidden: { opacity: 0, y: 30, scale: 0.985 },
+  show: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: 0.75,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
+}
 
 export function Projects() {
   const { projects, loading } = useGithubProjects()
 
   return (
-    <section
-      id="projects"
-      className="bg-transparent py-24"
-    >
+    <section id="projects" className="bg-transparent py-24">
       <div className="container-page">
-        <div className="mx-auto max-w-3xl text-center">
-          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-violet-500 dark:text-violet-400 md:text-sm">
+        <motion.div
+          className="mx-auto max-w-3xl text-center"
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.25 }}
+        >
+          <motion.p
+            variants={fadeItem}
+            className="text-xs font-semibold uppercase tracking-[0.28em] text-violet-500 dark:text-violet-400 md:text-sm"
+          >
             Proyectos Destacados
-          </p>
+          </motion.p>
 
-          <h2 className="mt-3 text-4xl font-bold tracking-tight text-slate-900 dark:text-[#e7e9f2] md:text-5xl">
+          <motion.h2
+            variants={fadeItem}
+            className="mt-3 text-4xl font-bold tracking-tight text-slate-900 dark:text-[#e7e9f2] md:text-5xl"
+          >
             Portafolio
-          </h2>
+          </motion.h2>
 
-          <div className="mx-auto mt-5 h-1 w-20 rounded-full bg-violet-500" />
-        </div>
+          <motion.div
+            variants={fadeItem}
+            className="mx-auto mt-5 h-1 w-20 rounded-full bg-violet-500"
+          />
+        </motion.div>
 
         {loading ? (
-          <p className="mt-14 text-center text-slate-600 dark:text-slate-300">
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="mt-14 text-center text-slate-600 dark:text-slate-300"
+          >
             Cargando proyectos...
-          </p>
+          </motion.p>
         ) : (
-          <div className="mt-14 grid grid-cols-1 gap-10 md:grid-cols-2">
+          <motion.div
+            className="mt-14 grid grid-cols-1 gap-10 md:grid-cols-2"
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.12 }}
+          >
             {projects.map((project) => (
-              <article
+              <motion.article
                 key={project.id}
+                variants={fadeUpSoft}
                 className="group w-full overflow-hidden rounded-[22px] border border-slate-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:border-violet-300 hover:shadow-md dark:border-violet-500/15 dark:bg-[#0b1020] dark:hover:border-violet-400/40"
               >
                 <div className="relative h-[185px] overflow-hidden bg-slate-100 dark:bg-[#090f1c]">
@@ -88,20 +148,27 @@ export function Projects() {
                     <ChevronDown className="h-4 w-4" />
                   </button>
 
-                  <div className="mt-4 flex flex-wrap gap-2">
+                  <motion.div
+                    className="mt-4 flex flex-wrap gap-2"
+                    variants={staggerContainer}
+                    initial="hidden"
+                    whileInView="show"
+                    viewport={{ once: true, amount: 0.3 }}
+                  >
                     {project.tech.map((tag) => (
-                      <span
+                      <motion.span
                         key={tag}
+                        variants={fadeItem}
                         className="rounded-full border border-violet-200 bg-violet-50 px-3 py-1 text-xs font-medium text-violet-700 dark:border-transparent dark:bg-[#141a33] dark:text-violet-400"
                       >
                         {tag}
-                      </span>
+                      </motion.span>
                     ))}
-                  </div>
+                  </motion.div>
                 </div>
-              </article>
+              </motion.article>
             ))}
-          </div>
+          </motion.div>
         )}
       </div>
     </section>

@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { motion } from "framer-motion";
 import {
   Atom,
   Code2,
@@ -23,12 +24,9 @@ const skills = [
   "React",
   "TailwindCSS",
   "React Query",
-  "React Hook Form",
   "Figma",
   "Git",
   "GitHub",
-  "Firebase",
-  "Supabase",
 ];
 
 const languages = ["Español (nativo)", "Inglés (en proceso de aprendizaje)"];
@@ -80,6 +78,40 @@ const education = [
       "Formación técnica en informática empresarial enfocada en soporte técnico, mantenimiento de equipos y herramientas tecnológicas para entornos empresariales.",
   },
 ];
+
+const staggerContainer = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.12,
+    },
+  },
+};
+
+const fadeItem = {
+  hidden: { opacity: 0, y: 28 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.65,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
+};
+
+const fadeUpSoft = {
+  hidden: { opacity: 0, y: 34, scale: 0.985 },
+  show: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: 0.75,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
+};
 
 function SkillIcon({ label }: { label: string }) {
   const normalized = label.toLowerCase();
@@ -139,7 +171,7 @@ function TimelineCard({
   skillsDeveloped,
 }: TimelineCardProps) {
   return (
-    <div className="relative pl-12">
+    <motion.div variants={fadeItem} className="relative pl-12">
       <div className="absolute left-4 top-0 h-full w-px bg-slate-200 dark:bg-white/10" />
 
       <div className="absolute left-0 top-8 flex h-8 w-8 items-center justify-center rounded-full border border-slate-200 bg-white text-violet-600 shadow-sm dark:border-white/10 dark:bg-[#11182c] dark:text-violet-300">
@@ -173,11 +205,19 @@ function TimelineCard({
               Tecnologías utilizadas:
             </p>
 
-            <div className="mt-4 flex flex-wrap gap-3">
+            <motion.div
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.2 }}
+              className="mt-4 flex flex-wrap gap-3"
+            >
               {tech.map((item) => (
-                <Pill key={item} label={item} />
+                <motion.div key={item} variants={fadeItem}>
+                  <Pill label={item} />
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
           </>
         )}
 
@@ -187,25 +227,39 @@ function TimelineCard({
               Habilidades desarrolladas:
             </p>
 
-            <div className="mt-4 flex flex-wrap gap-3">
+            <motion.div
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.2 }}
+              className="mt-4 flex flex-wrap gap-3"
+            >
               {skillsDeveloped.map((item) => (
-                <Pill key={item} label={item} />
+                <motion.div key={item} variants={fadeItem}>
+                  <Pill label={item} />
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
           </>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 }
 
 export function AboutContent() {
   return (
     <main className="text-slate-900 dark:text-white">
-      <section className="container-page py-12 md:py-16">
+      <motion.section
+        className="container-page py-12 md:py-16"
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.2 }}
+      >
         <div className="mx-auto max-w-[1120px]">
           <div className="grid items-center gap-10 lg:grid-cols-[260px_minmax(0,1fr)] lg:gap-14">
-            <div className="flex justify-center">
+            <motion.div variants={fadeUpSoft} className="flex justify-center">
               <div className="overflow-hidden rounded-full border border-slate-200 bg-white shadow-[0_14px_40px_rgba(15,23,42,0.08)] dark:border-white/10 dark:bg-[#0d1326] dark:shadow-[0_14px_40px_rgba(0,0,0,0.22)]">
                 <Image
                   src="https://res.cloudinary.com/djobjaogh/image/upload/v1772816474/1731361667116_o3gm6t.jpg"
@@ -216,66 +270,92 @@ export function AboutContent() {
                   priority
                 />
               </div>
-            </div>
+            </motion.div>
 
-            <div className="text-center lg:text-left">
+            <motion.div variants={fadeUpSoft} className="text-center lg:text-left">
               <h1 className="text-3xl font-semibold tracking-tight text-slate-900 dark:text-white sm:text-4xl md:text-5xl">
                 Perfil Profesional
               </h1>
 
-              <h2 className="mt-4 text-xl text-slate-600  sm:text-2xl text-violet-500 dark:text-violet-40">
+              <h2 className="mt-4 text-xl text-violet-500 text-slate-600 dark:text-violet-400 sm:text-2xl">
                 Ingeniería en Sistemas
               </h2>
 
               <p className="mt-5 max-w-[720px] text-sm leading-7 text-slate-600 dark:text-slate-300 md:text-base">
                 Soy estudiante de Ingeniería en Sistemas con experiencia participando en el desarrollo de plataformas web para organizaciones reales. Durante mi formación he trabajado en proyectos donde he desarrollado soluciones que integran frontend, backend y bases de datos para apoyar procesos administrativos y operativos.
-
-Me interesa comprender cómo se diseñan y estructuran los sistemas de software, desde la lógica de las aplicaciones hasta la organización de los datos y la arquitectura que permite que las soluciones sean funcionales, seguras y escalables.
+                <br />
+                <br />
+                Me interesa comprender cómo se diseñan y estructuran los sistemas de software, desde la lógica de las aplicaciones hasta la organización de los datos y la arquitectura que permite que las soluciones sean funcionales, seguras y escalables.
               </p>
-
-
-            </div>
+            </motion.div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
-      <section className="container-page py-6 md:py-10">
+      <motion.section
+        className="container-page py-6 md:py-10"
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.15 }}
+      >
         <div className="grid gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
-          <div>
+          <motion.div variants={fadeUpSoft}>
             <h2 className="text-center text-2xl font-bold text-slate-900 dark:text-white md:text-3xl lg:text-left">
               Habilidades y Herramientas
             </h2>
 
-            <div className="mt-6 flex flex-wrap justify-center gap-3 lg:justify-start">
+            <motion.div
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.2 }}
+              className="mt-6 flex flex-wrap justify-center gap-3 lg:justify-start"
+            >
               {skills.map((skill) => (
-                <Pill key={skill} label={skill} />
+                <motion.div key={skill} variants={fadeItem}>
+                  <Pill label={skill} />
+                </motion.div>
               ))}
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
-          <div>
+          <motion.div variants={fadeUpSoft}>
             <h2 className="text-center text-2xl font-bold text-slate-900 dark:text-white md:text-3xl lg:text-left">
               Idiomas
             </h2>
 
-            <div className="mt-6 flex flex-wrap justify-center gap-3 lg:justify-start">
+            <motion.div
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.2 }}
+              className="mt-6 flex flex-col items-center gap-3 lg:flex-row lg:flex-wrap lg:justify-start"
+            >
               {languages.map((language) => (
-                <span
-                  key={language}
-                  className="inline-flex items-center rounded-full border border-violet-200 bg-violet-50 px-5 py-2.5 text-sm font-medium text-violet-700 dark:border-violet-400/10 dark:bg-[#111a35] dark:text-[#e9ecff] md:text-base"
-                >
-                  {language}
-                </span>
+                <motion.div key={language} variants={fadeItem}>
+                  <span className="inline-flex w-fit max-w-[260px] items-center justify-center rounded-full border border-violet-200 bg-violet-50 px-5 py-2.5 text-center text-sm font-medium text-violet-700 dark:border-violet-400/10 dark:bg-[#111a35] dark:text-[#e9ecff] md:max-w-none md:text-base">
+                    {language}
+                  </span>
+                </motion.div>
               ))}
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
-      <section className="container-page py-14 md:py-18">
-        <SectionTitle>Experiencia</SectionTitle>
+      <motion.section
+        className="container-page py-14 md:py-18"
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.12 }}
+      >
+        <motion.div variants={fadeUpSoft}>
+          <SectionTitle>Experiencia</SectionTitle>
+        </motion.div>
 
-        <div className="space-y-8">
+        <motion.div variants={staggerContainer} className="space-y-8">
           {experience.map((item) => (
             <TimelineCard
               key={`${item.title}-${item.period}`}
@@ -288,13 +368,21 @@ Me interesa comprender cómo se diseñan y estructuran los sistemas de software,
               skillsDeveloped={item.skillsDeveloped}
             />
           ))}
-        </div>
-      </section>
+        </motion.div>
+      </motion.section>
 
-      <section className="container-page py-8 pb-20 md:py-10 md:pb-24">
-        <SectionTitle>Educación</SectionTitle>
+      <motion.section
+        className="container-page py-8 pb-20 md:py-10 md:pb-24"
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.12 }}
+      >
+        <motion.div variants={fadeUpSoft}>
+          <SectionTitle>Educación</SectionTitle>
+        </motion.div>
 
-        <div className="space-y-8">
+        <motion.div variants={staggerContainer} className="space-y-8">
           {education.map((item) => (
             <TimelineCard
               key={`${item.title}-${item.period}-${item.degree}`}
@@ -305,8 +393,8 @@ Me interesa comprender cómo se diseñan y estructuran los sistemas de software,
               description={item.description}
             />
           ))}
-        </div>
-      </section>
+        </motion.div>
+      </motion.section>
     </main>
   );
 }
