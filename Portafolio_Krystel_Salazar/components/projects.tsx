@@ -140,14 +140,6 @@ export function Projects() {
                     {project.descriptionEs}
                   </p>
 
-                  <button
-                    type="button"
-                    className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-violet-600 transition hover:text-violet-500 dark:text-violet-400 dark:hover:text-violet-300"
-                  >
-                    Ver más detalles
-                    <ChevronDown className="h-4 w-4" />
-                  </button>
-
                   <motion.div
                     className="mt-4 flex flex-wrap gap-2"
                     variants={staggerContainer}
