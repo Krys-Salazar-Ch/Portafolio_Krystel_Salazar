@@ -113,4 +113,10 @@ Universidad Nacional de Costa Rica
 - **LinkedIn**: [https://www.linkedin.com/in/krystel-salazar/]
 - **GitHub**: [https://github.com/Krys-Salazar-Ch](https://github.com/Krys-Salazar-Ch)
 
+## Demo
+
+Puedes ver el portafolio en línea aquí:
+
+https://tu-portfolio.vercel.app
+
 ¡Estoy abierta a colaboraciones y oportunidades! No dudes en contactarme.
