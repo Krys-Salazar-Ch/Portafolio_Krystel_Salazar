@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { useGithubProjects } from "@/hooks/usegithubproyects"
+import { useGithubProjects } from "@/hooks/useGithubProyects"
 import { ExternalLink, Github, ChevronDown } from "lucide-react"
 
 const staggerContainer = {

@@ -117,6 +117,6 @@ Universidad Nacional de Costa Rica
 
 Puedes ver el portafolio en línea aquí:
 
-https://tu-portfolio.vercel.app
+https://portafolio-krystel-salazar-nine.vercel.app/
 
 ¡Estoy abierta a colaboraciones y oportunidades! No dudes en contactarme.
